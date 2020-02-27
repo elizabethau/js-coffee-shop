@@ -54,7 +54,12 @@
     // Set these variables to their DOM elements
 
     let coffeeImage;
+    let revenueTotal;
     let revenueMessage;
+    let espresso;
+    let latte;
+    let hotChocolate;
+
 
     // use this JavaScript object in further study step
 
@@ -91,27 +96,58 @@
 */
     // Below is just straight javascript
     coffeeImage = document.querySelector('img');
-    coffeeImage.setAttribute("src", 'static/coffee_beans.jpg')
+    coffeeImage.setAttribute("src", 'static/coffee_beans.jpg');
     
+    espresso = document.querySelector('#espresso');
+    latte = document.querySelector('#latte');
+    hotChocolate = document.querySelector('#hot-chocolate')
 
-    const makeCoffee = () => {
-        coffeeImage.setAttribute("src", 'static/coffee_machine.jpg')
+
+
+
+    let drinksOrdered = [];
+
+
+    const showMachine = () => {
+        coffeeImage.setAttribute("src", 'static/coffee_machine.jpg');
     }
 
-    const makeCoffee2 = () => {
+    const showMug = () => {
         coffeeImage.setAttribute("src", 'static/coffee_mug.jpg');
     }
 
-    const makeCoffee3 = () => {
-        coffeeImage.setAttribute("src", 'static/coffee_beans.jpg')
+    const showBeans = () => {
+        coffeeImage.setAttribute("src", 'static/coffee_beans.jpg');
     }
 
-    const changeCoffeePics = () => {
-        makeCoffee();
-        setTimeout(makeCoffee2, 1500);
-        setTimeout(makeCoffee3, 2500);
+    const makeDrink = (drinkType) => {
+
+        drinksOrdered.push(drinkType);
+        showMachine();
+        setTimeout(showMug, 1500);
+        setTimeout(showBeans, 2500);
+        total2 = revenue();
+        document.querySelector('#revenue').innerHTML = total2;
+
     }
-    coffeeImage.addEventListener('click', changeCoffeePics);
+
+    
+    const revenue = () => {
+        let total = 0;
+        for(const drink of drinksOrdered){
+            //console.log(prices[drink]);
+            total += prices[drink];
+        }
+        return total;
+    }
+    coffeeImage.addEventListener('click', function() { makeDrink("brew"); });
+    espresso.addEventListener('click', function() { makeDrink("espresso")});
+    latte.addEventListener('click', function() { makeDrink("latte")});
+    hotChocolate.addEventListener('click', function() { makeDrink("hot chocolate")});
+
+
+    
+
 
 </script>
 
